@@ -14,7 +14,7 @@ export async function createTypeormOptions(): Promise<TypeOrmModuleOptions> {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    synchronize: true,
+    synchronize: false,
     entities: [User, Customer, Product, Quotation, Management],
     namingStrategy: new SnakeNamingStrategy(),
   };
