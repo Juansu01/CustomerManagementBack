@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsPhoneNumber } from 'class-validator';
+import { IsString, IsNotEmpty, IsInt, IsOptional } from 'class-validator';
 
 export class NewCustomerDto {
   @IsString()
@@ -32,4 +32,8 @@ export class NewCustomerDto {
   @IsString()
   @IsNotEmpty()
   city: string;
+
+  @IsInt()
+  @IsOptional()
+  purchaseProjection: number;
 }

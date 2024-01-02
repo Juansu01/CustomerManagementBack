@@ -6,7 +6,6 @@ import { Repository } from 'typeorm';
 import { NewCustomerDto } from './dtos/new-customer.dto';
 import { UserService } from '../user/user.service';
 import { Management } from '../management/management.entity';
-import { ContactType } from '../management/enums/contact-type.enum';
 import { NewManagementDto } from '../management/dtos/new-management.dto';
 
 @Injectable()
