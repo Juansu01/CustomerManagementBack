@@ -22,7 +22,7 @@ export class NewCustomerDto {
   address: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   email: string;
 
   @IsString()
