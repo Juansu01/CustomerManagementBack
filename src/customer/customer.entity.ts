@@ -47,6 +47,9 @@ export class Customer extends BaseEntity {
   })
   state: CustomerState;
 
+  @Column()
+  purchaseProjection: number;
+
   @ManyToOne(() => User, (user) => user.customers, { nullable: true })
   user: User;
 
