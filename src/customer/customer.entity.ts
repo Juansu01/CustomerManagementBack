@@ -34,7 +34,7 @@ export class Customer extends BaseEntity {
   @Column()
   city: string;
 
-  @Column()
+  @Column({ nullable: true })
   email: string;
 
   @Column()
