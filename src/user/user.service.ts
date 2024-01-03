@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { DataSource } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 import { User } from './user.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -32,9 +33,13 @@ export class UserService {
     if (isCCTaken)
       throw new HttpException('CC already taken', HttpStatus.CONFLICT);
 
+    const hashedPassword = this.generateHashedPassword(user.password);
+
     const newUser = this.userRepository.create({
-      ...user,
       identification: user.cc,
+      password: hashedPassword,
+      name: user.name,
+      phone: user.phone,
     });
 
     return this.userRepository.save(newUser);
@@ -99,5 +104,10 @@ export class UserService {
     if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
 
     return user;
+  }
+
+  private generateHashedPassword(password: string): string {
+    const salt = bcrypt.genSaltSync();
+    return bcrypt.hashSync(password, salt);
   }
 }

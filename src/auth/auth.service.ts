@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 import { JwtPayload } from './types/jwt-payload.type';
 import { UserRequest } from '../shared/types/user-request.type';
@@ -25,7 +26,9 @@ export class AuthService {
 
     if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
 
-    if (user.password !== password)
+    const isValidPassword = bcrypt.compareSync(password, user.password);
+
+    if (!isValidPassword)
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
 
     const payload = { cc: user.identification, role: user.role };
@@ -52,7 +55,7 @@ export class AuthService {
     }
   }
 
-  validateAdmin(token: string): boolean {
+  public validateAdmin(token: string): boolean {
     const payload = this.jwtService.decode<JwtPayload>(token);
     return payload.role === 'admin';
   }
