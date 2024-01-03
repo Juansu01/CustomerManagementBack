@@ -3,4 +3,5 @@ export enum ContactType {
   WEB_PAGE = 'Página web',
   CAMP_VISIT = 'Visita de campo',
   STORE = 'Tienda',
+  WHATSAPP = 'Whatsapp',
 }
