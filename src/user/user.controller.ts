@@ -39,4 +39,9 @@ export class UserController {
   getMyCustomers(@Request() req: UserRequest) {
     return this.userService.getMyCustomers(req.user.cc);
   }
+
+  @Get('my-info')
+  getMyInfo(@Request() req: UserRequest) {
+    return this.userService.getMyInfo(req.user.cc);
+  }
 }

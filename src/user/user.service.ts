@@ -89,4 +89,15 @@ export class UserService {
     });
     return customers;
   }
+
+  async getMyInfo(userIdentification: string): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: { identification: userIdentification },
+      select: ['identification', 'role'],
+    });
+
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+
+    return user;
+  }
 }
